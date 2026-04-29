@@ -1,0 +1,111 @@
+{
+  "entities": [
+    {
+      "name": "CUSTOMER",
+      "color": "#e1f5fe",
+      "border": "#01579b",
+      "attributes": [
+        {"name": "Customer_ID", "type": "INT", "key": "PK"},
+        {"name": "name", "type": "VARCHAR(100)", "key": null},
+        {"name": "email", "type": "VARCHAR(100)", "key": null},
+        {"name": "phone", "type": "VARCHAR(20)", "key": null},
+        {"name": "address", "type": "VARCHAR(255)", "key": null}
+      ]
+    },
+    {
+      "name": "SALES_ORDER",
+      "color": "#fff9c4",
+      "border": "#f9a825",
+      "attributes": [
+        {"name": "Sales_Order_ID", "type": "INT", "key": "PK"},
+        {"name": "Customer_ID", "type": "INT", "key": "FK"},
+        {"name": "date_order", "type": "DATETIME", "key": null},
+        {"name": "amount_total", "type": "DECIMAL(10,2)", "key": null},
+        {"name": "state", "type": "VARCHAR(20)", "key": null},
+        {"name": "commitment_date", "type": "DATE", "key": null}
+      ]
+    },
+    {
+      "name": "SALE_ORDER_LINE",
+      "color": "#fff9c4",
+      "border": "#f9a825",
+      "attributes": [
+        {"name": "SOL_ID", "type": "INT", "key": "PK"},
+        {"name": "Sales_Order_ID", "type": "INT", "key": "FK"},
+        {"name": "Product_ID", "type": "INT", "key": "FK"},
+        {"name": "quantity", "type": "INT", "key": null},
+        {"name": "price_unit", "type": "DECIMAL(10,2)", "key": null},
+        {"name": "discount", "type": "DECIMAL(5,2)", "key": null}
+      ]
+    },
+    {
+      "name": "PRODUCT",
+      "color": "#f3e5f5",
+      "border": "#6a1b9a",
+      "attributes": [
+        {"name": "Product_ID", "type": "INT", "key": "PK"},
+        {"name": "name", "type": "VARCHAR(100)", "key": null},
+        {"name": "type", "type": "VARCHAR(20)", "key": null},
+        {"name": "sale_price", "type": "DECIMAL(10,2)", "key": null},
+        {"name": "cost", "type": "DECIMAL(10,2)", "key": null},
+        {"name": "min_stock", "type": "INT", "key": null},
+        {"name": "max_stock", "type": "INT", "key": null}
+      ]
+    },
+    {
+      "name": "INVENTORY",
+      "color": "#e8f5e9",
+      "border": "#2e7d32",
+      "attributes": [
+        {"name": "Inventory_ID", "type": "INT", "key": "PK"},
+        {"name": "Product_ID", "type": "INT", "key": "FK"},
+        {"name": "qty_available", "type": "INT", "key": null},
+        {"name": "qty_reserved", "type": "INT", "key": null},
+        {"name": "location", "type": "VARCHAR(50)", "key": null}
+      ]
+    },
+    {
+      "name": "SUPPLIER",
+      "color": "#fce4ec",
+      "border": "#c62828",
+      "attributes": [
+        {"name": "Supplier_ID", "type": "INT", "key": "PK"},
+        {"name": "name", "type": "VARCHAR(100)", "key": null},
+        {"name": "contact_person", "type": "VARCHAR(100)", "key": null},
+        {"name": "phone", "type": "VARCHAR(20)", "key": null}
+      ]
+    },
+    {
+      "name": "PURCHASE_ORDER",
+      "color": "#fce4ec",
+      "border": "#c62828",
+      "attributes": [
+        {"name": "PO_ID", "type": "INT", "key": "PK"},
+        {"name": "Supplier_ID", "type": "INT", "key": "FK"},
+        {"name": "order_date", "type": "DATETIME", "key": null},
+        {"name": "expected_arrival", "type": "DATE", "key": null},
+        {"name": "state", "type": "VARCHAR(20)", "key": null}
+      ]
+    },
+    {
+      "name": "MANUFACTURING_ORDER",
+      "color": "#f3e5f5",
+      "border": "#6a1b9a",
+      "attributes": [
+        {"name": "MO_ID", "type": "INT", "key": "PK"},
+        {"name": "Product_ID", "type": "INT", "key": "FK"},
+        {"name": "bom_id", "type": "INT", "key": null},
+        {"name": "quantity", "type": "INT", "key": null},
+        {"name": "state", "type": "VARCHAR(20)", "key": null}
+      ]
+    }
+  ],
+  "relationships": [
+    {"from": "CUSTOMER", "to": "SALES_ORDER", "cardinality": "1:N", "color": "#01579b"},
+    {"from": "SALES_ORDER", "to": "SALE_ORDER_LINE", "cardinality": "1:N", "color": "#f9a825"},
+    {"from": "PRODUCT", "to": "SALE_ORDER_LINE", "cardinality": "1:N", "color": "#6a1b9a"},
+    {"from": "PRODUCT", "to": "INVENTORY", "cardinality": "1:N", "color": "#2e7d32"},
+    {"from": "SUPPLIER", "to": "PURCHASE_ORDER", "cardinality": "1:N", "color": "#c62828"},
+    {"from": "PRODUCT", "to": "MANUFACTURING_ORDER", "cardinality": "1:N", "color": "#6a1b9a"}
+  ]
+}
